@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaRegUser } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { useDispatch } from "react-redux";
 import { toggleMenu } from "../redux/appSlice";
-import { Link } from "react-router-dom";
+import { YOUTUBE_SEARCH_API } from "../utils/constants";
+
 
 const Header = () => {
-  const [serachQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getFetchData = async () => {
+      try {
+        const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+        const response = await data.json();
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (searchQuery.trim() !== "") {
+      getFetchData();
+    }
+  }, [searchQuery]);
 
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
@@ -19,7 +36,7 @@ const Header = () => {
       <div className="flex col-span-1 items-center">
         <RxHamburgerMenu
           className="cursor-pointer"
-          onClick={() => toggleMenuHandler()}
+          onClick={toggleMenuHandler}
         />
         <a href="/">
           <h1 className="font-semibold mx-2 ">
@@ -33,7 +50,7 @@ const Header = () => {
           className="bg-[#121212] rounded-l-full text-white py-2  px-3 w-[90%] outline-none border-none text-lg "
           type="text"
           onChange={(e) => setSearchQuery(e.target.value)}
-          value={serachQuery}
+          value={searchQuery}
         />
         <IoSearch className="px-3 text-3xl w-[10%] py-2  h-auto rounded-r-full text-[#ffffff] bg-[#222222]" />
       </div>
