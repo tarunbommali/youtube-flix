@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-
 import { closeMenu } from "../redux/appSlice";
 import { useSearchParams } from "react-router-dom";
+import CommentsContainer from "./CommentsContainer";
+import ChannelDetails from "./ChannelDetails";
+
 
 const WatchVideo = () => {
   const dispatch = useDispatch();
@@ -15,10 +17,10 @@ const WatchVideo = () => {
   }, [dispatch]); // Include dispatch in the dependency array
 
   return (
-    <div className="p-2 rounded-md h-screen flex justify-center">
+    <div className="p-2  mx-auto md:mx-[56px] rounded-md flex flex-col w-[1000px] ">
       <iframe
-        className="rounded-lg"
-        width="1000"
+        className="rounded-lg my-2"
+        width="990"
         height="500"
         src={`https://www.youtube.com/embed/${id}`}
         title="YouTube video player"
@@ -27,6 +29,10 @@ const WatchVideo = () => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       ></iframe>
+      <div className="flex flex-col my-4">
+        <ChannelDetails/>
+        <CommentsContainer />
+      </div>
     </div>
   );
 };

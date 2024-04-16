@@ -14,7 +14,7 @@ const VideoCard = ({ info }) => {
   const count = statistics && statistics.likeCount !== undefined ? statistics.likeCount : 0;
   const countFormater = useCountFormater({ count });
   const published = useTimeAgo(publishedAt)
-  console.log(countFormater)
+  
 
   return (
     <Link to={`watch?v=${id}`} className="flex flex-col text-lg w-72 shadow-lg p-2 m-1 rounded-sm">
