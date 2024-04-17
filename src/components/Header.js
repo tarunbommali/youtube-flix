@@ -4,24 +4,23 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { FaRegUser } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { toggleMenu } from "../redux/appSlice";
-import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import { LOGO, YOUTUBE_SEARCH_API } from "../utils/constants";
 import { IoIosSearch } from "react-icons/io";
 import { addCacheResult } from "../redux/searchSlice";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchSuggestions, setSearchSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestion] = useState(false)
+  const [showSuggestions, setShowSuggestion] = useState(false);
   const dispatch = useDispatch();
 
   const searchCache = useSelector((store) => store.cacheSearchResult);
-  
+
   useEffect(() => {
     if (searchQuery.trim() !== "") {
-      
-      if (searchCache[searchQuery]){
-        setSearchSuggestions(searchCache[searchQuery])
-      }else{
+      if (searchCache[searchQuery]) {
+        setSearchSuggestions(searchCache[searchQuery]);
+      } else {
         getSearchSuggestion();
       }
     }
@@ -37,8 +36,6 @@ const Header = () => {
       const response = await data.json();
       setSearchSuggestions(response[1]);
       dispatch(addCacheResult({ query: searchQuery, results: response[1] }));
-
-      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -48,9 +45,9 @@ const Header = () => {
     dispatch(toggleMenu());
   };
 
-  const searchTextCondtion = searchSuggestions.length !== 0 ; 
+  const searchTextCondtion = searchSuggestions.length !== 0;
 
-  const searchCondtion = searchTextCondtion && showSuggestions
+  const searchCondtion = searchTextCondtion && showSuggestions;
 
   return (
     <div className="grid grid-flow-col items-center shadow-lg p-3 m-0 w-[100%] sticky top-0 whitespace-pre-wrap  text-white z-50 bg-[#0f0f0f] text-3xl justify-between">
@@ -60,13 +57,17 @@ const Header = () => {
           onClick={toggleMenuHandler}
         />
         <a href="/">
-          <h1 className="font-semibold mx-2 ">
-            Youtube<span className="text-green-600 font-extrabold"> Flix</span>
+          <h1 className="flex  items-center font-semibold mx-2 ">
+            <span className="md:hidden">
+              <img src={LOGO} className="w-[48px] h-[48px]" alt="logo" />
+            </span>{" "}
+            <span className="hidden md:block"> Youtube</span>
+            <span className="text-green-600 font-extrabold"> Flix</span>
           </h1>
         </a>
       </div>
       <div className="flex flex-col">
-        <div className="flex items-center border-2 border-[#303030] bg-[#121212] text-white  rounded-full w-[500px] ">
+        <div className=" items-center border-2 border-[#303030] bg-[#121212] text-white  rounded-full hidden   md:flex md:block w-[500px] ">
           <input
             placeholder="Search"
             className="bg-[#121212] rounded-l-full text-white py-2  px-3 w-[90%] outline-none border-none text-lg "
@@ -92,8 +93,11 @@ const Header = () => {
           </ul>
         )}
       </div>
-      <div className="col-span-1">
+      <div className="col-span-1 hidden md:block">
         <FaRegUser />
+      </div>
+      <div className="md:hidden">
+        <IoIosSearch className="mr-3" />
       </div>
     </div>
   );

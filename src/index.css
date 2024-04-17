@@ -1,7 +1,59 @@
 @tailwind base;
-*::-webkit-scrollbar {
-    display: none;
-  }
-  
 @tailwind components; 
 @tailwind utilities; 
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chat scrollbar styles */
+.chat:hover {
+  overflow-y: auto; /* Changed to auto for better compatibility */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ccc transparent; /* For Firefox */
+}
+
+.chat:hover::-webkit-scrollbar {
+  width: 5px; 
+}
+
+.chat:hover::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat:hover::-webkit-scrollbar-thumb {
+  background-color: #ccc; 
+  border-radius: 5px;
+}
+
+/* Side menu scrollbar styles */
+.side-menu:hover {
+  overflow-y: auto; /* Changed to auto for better compatibility */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ccc transparent; /* For Firefox */
+}
+
+.side-menu:hover::-webkit-scrollbar {
+  width: 5px; 
+}
+
+.side-menu:hover::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.side-menu:hover::-webkit-scrollbar-thumb {
+  background-color: #ccc; 
+  border-radius: 5px;
+}
+
+/* Initially hide scrollbar */
+.chat:hover::-webkit-scrollbar,
+.side-menu:hover::-webkit-scrollbar {
+  display: none;
+}
+
+/* Show scrollbar on hover */
+.chat:hover:hover::-webkit-scrollbar,
+.side-menu:hover:hover::-webkit-scrollbar {
+  display: block;
+}

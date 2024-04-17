@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="flex bg-[#0f0f0f] text-white h-screen">
       <div
-        className="bg-[#0f0f0f] text-red-50 overflow-y-scroll"
+        className="side-menu bg-[#0f0f0f] text-red-50 overflow-y-scroll"
         style={{ flex: "0 0 auto" }}
       >
         <SideMenu />

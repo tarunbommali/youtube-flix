@@ -4,6 +4,7 @@ import { closeMenu } from "../redux/appSlice";
 import { useSearchParams } from "react-router-dom";
 import CommentsContainer from "./CommentsContainer";
 import ChannelDetails from "./ChannelDetails";
+import LiveChat from "./LiveChat";
 
 
 const WatchVideo = () => {
@@ -17,11 +18,10 @@ const WatchVideo = () => {
   }, [dispatch]); // Include dispatch in the dependency array
 
   return (
-    <div className="p-2  mx-auto md:mx-[56px] rounded-md flex flex-col w-[1000px] ">
+    <div className="p-2  mx-auto md:mx-[56px] rounded-md flex flex-col  ">
+    <div className="flex flex-col w-[100%] md:flex-row w-fill   ">
       <iframe
-        className="rounded-lg my-2"
-        width="990"
-        height="500"
+        className="rounded-lg my-2 w-[100vw] md:w-[990px] h-[400px] md:h-[520px]"
         src={`https://www.youtube.com/embed/${id}`}
         title="YouTube video player"
         frameBorder="0"
@@ -29,7 +29,9 @@ const WatchVideo = () => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       ></iframe>
-      <div className="flex flex-col my-4">
+      <LiveChat/>
+      </div>
+      <div className="flex flex-col my-4 w-[1000px]">
         <ChannelDetails/>
         <CommentsContainer />
       </div>
